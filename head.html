@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<title>{{TITULO}}</title>
+<style>
+@font-face { font-family:'HN'; src:url(fonts/HelveticaNeue-regular.ttf); font-weight:400; font-style:normal; }
+@font-face { font-family:'HN'; src:url(fonts/HelveticaNeue-bold.ttf); font-weight:600; font-style:normal; }
+@font-face { font-family:'HN'; src:url(fonts/HelveticaNeue-bold.ttf); font-weight:700; font-style:normal; }
+@font-face { font-family:'HN'; src:url(fonts/HelveticaNeue-italic.ttf); font-weight:400; font-style:italic; }
+@font-face { font-family:'HNL'; src:url(fonts/HelveticaNeueLight-regular.ttf); font-weight:400; font-style:normal; }
+@font-face { font-family:'HNL'; src:url(fonts/HelveticaNeue-bold.ttf); font-weight:600; font-style:normal; }
+@font-face { font-family:'HNL'; src:url(fonts/HelveticaNeue-bold.ttf); font-weight:700; font-style:normal; }
+@font-face { font-family:'HNL'; src:url(fonts/HelveticaNeueLight-italic.ttf); font-weight:400; font-style:italic; }
+
+:root{
+  --navy:#000000; --navy2:#3a3a3c; --ink:#1a1a1a; --soft:#5f5f62;
+  --gold:#e40139; --goldbg:#fdedf0; --line:#d7d7d9;
+  --bluebg:#f2f2f3; --green:#6d6e71; --greenbg:#f4f4f5;
+  --red:#b0002c; --redbg:#fdedf0; --paper:#f7f5f0;
+}
+@page{
+  size:A4; margin:20mm 20mm 26mm 20mm;
+  @bottom-left{ content:element(uptfoot); vertical-align:middle; }
+  @bottom-right{ content:"IMP.GE.208.3 | " counter(page); font-family:'HN'; font-size:7.5pt; color:#000; vertical-align:middle; }
+}
+@page cover{ margin:0; @bottom-left{content:none} @bottom-right{content:none} }
+@page :blank{ @bottom-left{content:none} @bottom-right{content:none} }
+
+html{ font-size:10pt; }
+body{ font-family:'HNL'; color:var(--ink); line-height:1.5; margin:0; }
+
+/* running footer logo */
+.pgfoot{ position:running(uptfoot); }
+.pgfoot img{ width:30mm; height:auto; }
+
+/* ---------- COVER (template DD) ---------- */
+.cover{ page:cover; width:210mm; height:297mm; position:relative; page-break-after:always; background:#fff url(logos/capa_dd.jpg) no-repeat 0 0; background-size:210mm 297mm; }
+.cover .bloco{ position:absolute; left:71mm; width:111mm; top:188mm; border-top:.6pt solid #000; border-bottom:.6pt solid #000; padding:6mm 0 5mm; font-family:'HN'; color:#000; }
+.cover h1{ font-family:'HN'; font-weight:700; font-size:15pt; line-height:1.2; text-transform:uppercase; margin:0 0 4mm; }
+.cover .sub{ font-family:'HN'; font-weight:700; font-size:11pt; margin:0 0 6mm; }
+.cover .linha{ font-family:'HN'; font-size:8.5pt; line-height:1.45; margin:0; }
+.cover .linha.gap{ margin-top:4mm; }
+
+
+/* ---------- DIAGRAMAS HTML ---------- */
+.dg{ font-family:'HN'; color:#1a1a1a; }
+.dg-t{ text-align:center; font-weight:700; font-size:11.5pt; color:#000; margin:0 0 1mm; }
+.dg-st{ text-align:center; font-size:8.6pt; color:#5f5f62; margin:0 0 3mm; }
+.dg-t + .dg-row, .dg-t + .dg-center{ margin-top:3mm; }
+.dg-row{ display:flex; align-items:stretch; }
+.dg-row > .dg-card, .dg-row > .dg-col{ flex:1; }
+.dg-row > .dg-card{ margin:0 1.2mm; }
+.dg-col{ padding:0 1.2mm; position:relative; }
+.dg-card{ border:1.1pt solid; border-radius:2.2mm; }
+.dg-h{ border-radius:1.6mm 1.6mm 0 0; }
+.dg-stem.at25{ margin:0 0 0 25%; }
+.dg-h{ color:#fff; font-weight:700; font-size:9.6pt; text-align:center; padding:2mm 2mm; line-height:1.2; }
+.dg-h2{ font-weight:700; font-size:9.8pt; text-align:center; padding:2.4mm 2mm 0; line-height:1.2; }
+.dg-b{ padding:2mm 2.6mm 2.6mm; }
+.dg-lead{ font-weight:700; font-size:8.8pt; line-height:1.3; margin:0 0 1.6mm; text-align:left; color:#1a1a1a; }
+.dg-b ul{ margin:0; padding:0 0 0 3.2mm; }
+.dg-b li{ font-size:8.6pt; line-height:1.32; margin:0 0 1.1mm; color:#3a3a3c; text-align:left; }
+.dg-p{ font-size:8.6pt; line-height:1.32; margin:0 0 1.6mm; color:#3a3a3c; text-align:left; }
+.dg-note{ font-size:7.8pt; line-height:1.3; color:#6d6e71; text-align:center; margin:1.6mm 0 0; }
+.dg-center{ text-align:center; }
+.dg-node{ display:inline-block; color:#fff; font-weight:700; font-size:9.8pt; padding:2.2mm 6mm; border-radius:2mm; line-height:1.25; }
+.dg-ns{ display:block; font-weight:400; font-size:8pt; color:#e6e6e8; }
+.dg-stem{ width:0; height:5mm; border-left:1.4pt solid #3a3a3c; margin:0 auto; }
+/* árvore: linhas de ligação */
+.dg-row.tree{ margin-top:0; padding-top:0; }
+.dg-row.tree > .dg-col{ padding-top:6mm; }
+.dg-row.tree > .dg-col::before{ content:""; position:absolute; top:0; left:50%; height:6mm; border-left:1.4pt solid #3a3a3c; }
+.dg-row.tree > .dg-col::after{ content:""; position:absolute; top:0; left:0; right:0; border-top:1.4pt solid #3a3a3c; }
+.dg-row.tree > .dg-col:first-child::after{ left:50%; }
+.dg-row.tree > .dg-col:last-child::after{ right:50%; }
+.dg-center + .dg-row.tree{ margin-top:0; }
+.dg-center > .dg-node + .dg-row{ }
+.dg-row.tree-up{ height:6mm; }
+.dg-row.tree-up > .dg-col::before{ content:""; position:absolute; top:0; left:50%; height:6mm; border-left:1.4pt solid #3a3a3c; }
+.dg-row.tree-up > .dg-col::after{ content:""; position:absolute; bottom:0; left:0; right:0; border-top:1.4pt solid #3a3a3c; }
+.dg-row.tree-up > .dg-col:first-child::after{ left:50%; }
+.dg-row.tree-up > .dg-col:last-child::after{ right:50%; }
+.dg-row.narrow{ margin-left:12%; margin-right:12%; }
+.dg-center::after{ content:""; display:block; width:0; height:0; }
+
+/* ---------- CONTRACAPA ---------- */
+.back{ page:cover; width:210mm; height:297mm; position:relative; page-break-before:left; background:#fff; }
+.back .faixa{ position:absolute; left:0; top:0; width:210mm; height:9mm; background:#d7d7d9; }
+.back .faixa i{ position:absolute; left:0; top:0; width:58mm; height:9mm; background:#e40139; }
+.back .marca{ position:absolute; left:0; width:210mm; top:108mm; text-align:center; }
+.back .marca img{ width:44mm; height:auto; }
+.back .url{ font-family:'HN'; font-size:10pt; letter-spacing:.06em; color:#000; margin:6mm 0 0; text-align:center; }
+.back .ficha{ position:absolute; left:50mm; width:110mm; top:196mm; border-top:.6pt solid #000; border-bottom:.6pt solid #000; padding:4mm 0; font-family:'HN'; font-size:8pt; line-height:1.5; color:#3a3a3c; text-align:center; }
+.back .ficha b{ color:#000; font-size:9pt; }
+.back .qs{ position:absolute; left:94.5mm; top:268mm; }
+.back .qs span{ display:inline-block; width:5mm; height:5mm; background:#e40139; margin:0 1.2mm; }
+
+/* ---------- TOC ---------- */
+.toc{ page-break-after:always; }
+.toc h2{ font-family:'HN'; font-size:20pt; color:var(--navy); border-bottom:2.5pt solid var(--gold); padding-bottom:3mm; margin:8mm 0 8mm; }
+.toc ol{ list-style:none; padding:0; margin:0; column-count:1; }
+.toc li{ font-family:'HN'; font-size:10pt; margin:0; padding:1.6mm 0; border-bottom:.4pt dotted #c6ccd4; }
+.toc li.l1{ font-weight:700; color:var(--navy); margin-top:2.6mm; }
+.toc li.l2{ padding-left:7mm; color:var(--soft); font-weight:400; }
+.toc a{ text-decoration:none; color:inherit; }
+.toc a::after{ content:target-counter(attr(href), page); float:right; font-weight:700; color:var(--gold); }
+
+/* ---------- HEADINGS ---------- */
+h2.ch{ font-family:'HN'; font-weight:700; font-size:17pt; color:var(--navy); margin:9mm 0 4mm; padding-bottom:2mm; border-bottom:1.6pt solid var(--gold); page-break-before:auto; page-break-after:avoid; }
+h2.ch.brk{ page-break-before:always; }
+h2.ch.cont{ margin-top:12mm; }
+h2.ch .num{ display:inline-block; background:var(--navy); color:#fff; font-size:11pt; padding:1mm 2.6mm; border-radius:2mm; margin-right:2.6mm; vertical-align:2pt; }
+h3{ font-family:'HN'; font-weight:600; font-size:12.5pt; color:var(--navy2); margin:7mm 0 2.6mm; page-break-after:avoid; }
+h4{ font-family:'HN'; font-weight:600; font-size:10.5pt; color:var(--ink); margin:5mm 0 2mm; page-break-after:avoid; }
+h5{ font-family:'HN'; font-weight:600; font-size:10.5pt; color:var(--navy2); margin:4.5mm 0 2mm; padding-left:2.4mm; border-left:2pt solid var(--gold); line-height:1.3; page-break-after:avoid; }
+h6{ font-family:'HN'; font-weight:600; font-size:10pt; color:var(--ink); margin:3.5mm 0 1.6mm; line-height:1.35; page-break-after:avoid; }
+p{ margin:0 0 2.6mm; text-align:justify; }
+p.lead{ font-size:10.5pt; }
+strong{ color:var(--navy); }
+em{ color:inherit; }
+
+/* ---------- BOXES ---------- */
+.artigo{ background:var(--bluebg); border-left:3pt solid var(--navy2); padding:3mm 4mm 2mm; margin:3.5mm 0; border-radius:0 2mm 2mm 0; page-break-inside:avoid; }
+.artigo .tag{ font-family:'HN'; font-weight:700; font-size:7.5pt; letter-spacing:.14em; text-transform:uppercase; color:var(--navy2); display:block; margin-bottom:1.4mm; }
+.artigo p{ font-style:italic; margin:0 0 1.6mm; }
+.exemplo{ background:var(--greenbg); border:.7pt solid #cfcfd2; border-radius:2mm; padding:3mm 4mm 1.6mm; margin:3.5mm 0; page-break-inside:avoid; }
+.exemplo .tag{ font-family:'HN'; font-weight:700; font-size:7.5pt; letter-spacing:.14em; text-transform:uppercase; color:var(--green); display:block; margin-bottom:1.2mm; }
+.exemplo p{ margin:0 0 1.6mm; }
+.nota{ background:var(--goldbg); border:.7pt solid #f3b3c2; border-radius:2mm; padding:3mm 4mm 1.6mm; margin:3.5mm 0; page-break-inside:avoid; }
+.nota .tag{ font-family:'HN'; font-weight:700; font-size:7.5pt; letter-spacing:.14em; text-transform:uppercase; color:var(--gold); display:block; margin-bottom:1.2mm; }
+.nota p{ margin:0 0 1.6mm; }
+.atencao{ background:var(--redbg); border:.7pt solid #e88aa0; border-radius:2mm; padding:3mm 4mm 1.6mm; margin:3.5mm 0; page-break-inside:avoid; }
+.atencao .tag{ font-family:'HN'; font-weight:700; font-size:7.5pt; letter-spacing:.14em; text-transform:uppercase; color:var(--red); display:block; margin-bottom:1.2mm; }
+.atencao p{ margin:0 0 1.6mm; }
+
+/* doutrina cards */
+.doutor{ border:.8pt solid var(--line); border-radius:2mm; margin:3mm 0; page-break-inside:avoid; background:#fff; }
+.doutor .who{ font-family:'HN'; font-weight:700; font-size:8.5pt; color:#fff; background:var(--navy2); padding:1.4mm 3.5mm; border-radius:2mm 2mm 0 0; }
+.doutor .body{ padding:2.4mm 3.5mm 1.2mm; }
+.doutor p{ margin:0 0 1.6mm; }
+
+/* ---------- TABLES ---------- */
+table{ width:100%; border-collapse:collapse; margin:3.5mm 0; font-size:8.8pt; }
+th{ font-family:'HN'; font-weight:600; font-size:8.2pt; letter-spacing:.03em; color:#fff; background:var(--navy); padding:1.9mm 2.4mm; text-align:left; }
+td{ padding:1.7mm 2.4mm; border-bottom:.5pt solid var(--line); vertical-align:top; }
+tr{ page-break-inside:avoid; }
+tbody tr:nth-child(even) td{ background:#f4f4f5; }
+td.al{ font-family:'HN'; font-weight:700; color:var(--gold); white-space:nowrap; }
+.caption{ font-family:'HN'; font-size:8pt; color:var(--soft); margin:-2mm 0 3mm; }
+
+/* ---------- FIGURES ---------- */
+figure{ margin:4mm 0; page-break-inside:avoid; }
+figure svg{ width:100%; height:auto; }
+figcaption{ font-family:'HN'; font-size:8pt; color:var(--soft); text-align:center; margin-top:1.6mm; }
+
+/* misc */
+.badge{ display:inline-block; font-family:'HN'; font-weight:600; font-size:7.5pt; color:#fff; background:var(--navy2); border-radius:2mm; padding:.5mm 2.2mm; margin:0 .6mm; }
+.lead-term{ font-family:'HN'; font-weight:700; color:var(--navy); }
+ul.clean{ margin:1.5mm 0 2.6mm; padding-left:5mm; }
+ul.clean li{ margin-bottom:1.2mm; }
+ol.alpha{ list-style:none; padding-left:0; margin:1.5mm 0 2.6mm; }
+ol.alpha>li{ margin-bottom:1.6mm; padding-left:8mm; position:relative; }
+ol.alpha>li::before{ content:attr(data-al); position:absolute; left:0; top:0; font-family:'HN'; font-weight:700; color:var(--gold); font-size:9pt; }
+.pgbreak{ page-break-before:always; }
+.avoid{ page-break-inside:avoid; }
+.kw{ font-family:'HN'; font-weight:600; font-size:9pt; color:var(--navy2); }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="bloco">
+{{CAPA}}
+  </div>
+</div>
+
+<div class="pgfoot"><img src="logos/dd_rodape.png" alt="UPT — Departamento de Direito"></div>
+
+<div class="toc">
+<h2>Índice</h2>
+<ol>
+{{INDICE}}
+</ol>
+</div>
